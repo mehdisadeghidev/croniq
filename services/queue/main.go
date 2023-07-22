@@ -22,11 +22,11 @@ func Setup() {
 	http := resty.New()
 
 	for i := 0; i < 10; i++ {
-		go work(http)
+		go run(http)
 	}
 }
 
-func work(http *resty.Client) {
+func run(http *resty.Client) {
 	for {
 		select {
 		case c := <-MainChannel:

@@ -18,4 +18,5 @@ func Setup() {
 
 	_ = viper.UnmarshalKey("token", &Token)
 	_ = viper.UnmarshalKey("cronjobs", &CronJobs)
+	_ = viper.UnmarshalKey("queues", &Queues)
 }

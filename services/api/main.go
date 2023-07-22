@@ -9,9 +9,8 @@ import (
 )
 
 type QueueInput struct {
-	Name     string                 `json:"name"`
-	Endpoint string                 `json:"endpoint"`
-	Data     map[string]interface{} `json:"data"`
+	Name string                 `json:"name"`
+	Data map[string]interface{} `json:"data"`
 }
 
 var app *fiber.App
@@ -42,9 +41,21 @@ func Setup() {
 			return c.SendStatus(fiber.StatusBadRequest)
 		}
 
+		var endpoint string
+		for _, q := range config.Queues {
+			if q.Name == input.Name {
+				endpoint = q.Endpoint
+				break
+			}
+		}
+
+		if endpoint == "" {
+			return c.SendStatus(fiber.StatusBadRequest)
+		}
+
 		queue.MainChannel <- queue.MainQueue{
 			Name:     input.Name,
-			Endpoint: input.Endpoint,
+			Endpoint: endpoint,
 			Data:     input.Data,
 		}
 

@@ -6,3 +6,7 @@ cronjobs:
     endpoint: "http://localhost:3000/api/cron/cleanup"
     data:
       foo: "bar"
+
+queues:
+  - name: "test"
+    endpoint: "http://localhost:3000/api/queue/test"
